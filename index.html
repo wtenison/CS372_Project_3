@@ -33,11 +33,6 @@
         padding: 3px 6px 3px 6px;
         margin: 0px;
     }
-    
-    .betting-board {
-        position: center;
-        color: blue;
-    }
 </style>
 
 <body>
@@ -94,10 +89,12 @@
             <td />
             <td />
             <td />
-            <td id="betting-board" style="background:rgb(18,53,82); position:relative; bottom:100; height:300px; width:500px; border-radius: 25px;;">
-                <font size="6px" style="color:white; position:relative; bottom:120; right:200;">
-                    <div class="label">Bank:</div>
-                    <div class="bank-amt" value="1000"></div>
+            <td id="betting-board" style="background:rgb(18,53,82); position:relative; bottom:100; height:300px; width:500px; border-radius: 25px;">
+                <div id="betting-board-label" style="background:rgb(18,53,82); position:relative; height:100px; width:190px; left:150px; bottom:140px; border-radius:25px;"></div>
+                <font size="6px" style="position:relative; bottom:240px; color:white;">
+                    <div class="label">Bank:
+                        <div class="bank-amt" value="1000"></div>
+                        <input type="button" value="ALL IN" onclick="allIn();"></div>
                 </font>
             </td>
         </tr>
