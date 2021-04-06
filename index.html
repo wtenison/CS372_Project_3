@@ -1,24 +1,25 @@
 <html>
-
 <head>
     <title>Blackjack</title>
 
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html" charset= "UTF-8" />
 </head>
 <style type="text/css">
     body {
         background-image: url("bg.jpg");
         background-repeat: no-repeat;
-        font-family: 'Times New Roman', Helvetica, sans-serif;
+        font-family: 'Times New Roman',Helvetica,sans-serif;
         font-size: 100%;
         line-height: 1em;
+
         min-width: 920px;
         border-top: 10px solid #0c0e0e;
         box-sizing: border-box;
         padding: 0;
         margin: 0;
+
     }
-    
+
     table th {
         text-align: center;
         text-decoration: none;
@@ -26,7 +27,7 @@
         padding: 3px 6px 3px 6px;
         width: 200px;
     }
-    
+
     table td {
         vertical-align: center;
         text-align: center;
@@ -34,13 +35,12 @@
         margin: 0px;
     }
 </style>
-
 <body>
     <table width="100%">
         <tr>
             <td>
                 <div align="left">
-                    <font size="40px">Blackjack</font>
+                    <font size="50px" color=#f5dd07><i><b>Blackjack</b></i></font>
                 </div>
             </td>
             <td>
@@ -55,8 +55,8 @@
     </table>
     <hr>
     <table id="tableboard">
+        <tr><td><font size=5 color=#f5bd07><i><b>Computer </b></i></font></td></tr>
         <tr>
-
             <td align="center" id="player1"><img src="resource\computer.jpg" /></td>
             <td />
             <td />
@@ -73,9 +73,9 @@
             <td />
             <td />
         </tr>
+        <tr><td><font size=5 color=#f5bd07><i><b>Player </b></i></font></td></tr>
         <tr>
-            <td align="center" id="player2">
-                <font size="15px">Player </font><img src="resource\player.jpg" /></td>
+            <td align="center" id="player2"><img src="resource\player.jpg" /></td>
             <td />
             <td />
             <td />
@@ -89,14 +89,7 @@
             <td />
             <td />
             <td />
-            <td id="betting-board" style="background:rgb(18,53,82); position:relative; bottom:100; height:300px; width:500px; border-radius: 25px;">
-                <div id="betting-board-label" style="background:rgb(18,53,82); position:relative; height:100px; width:190px; left:150px; bottom:140px; border-radius:25px;"></div>
-                <font size="6px" style="position:relative; bottom:240px; color:white;">
-                    <div class="label">Bank:
-                        <div class="bank-amt" value="1000"></div>
-                        <input type="button" value="ALL IN" onclick="allIn();"></div>
-                </font>
-            </td>
+            <td />
         </tr>
     </table>
     <hr>
@@ -106,7 +99,7 @@
                 <div id="score"></div>
             </td>
             <td>
-                <div id="bulletin"> Please make a choice. </div>
+                <div id="bulletin"><font color="yellow"> Please make a choice. </font></div>
             </td>
         </tr>
     </table>
@@ -116,7 +109,5 @@
     <!--<input type="button" id="restart" value="FIGHT AGAIN" onclick="location.reload();" />-->
     <input type="button" id="restart" value="FIGHT AGAIN" onclick="restart();" />
     <script src="blackjack.js"></script>
-
 </body>
-
 </html>
