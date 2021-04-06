@@ -36,17 +36,19 @@ var cards1 = [getNewCard(), getNewCard()];
 var cards2 = [getNewCard(), getNewCard()];
 
 var table = document.getElementById("tableboard");
-table.rows[0].cells[1].innerHTML = "<img src=\"resource\\cardback.png\" />";
-table.rows[0].cells[2].innerHTML = "<img src=\"resource\\" + cards1[1] + ".jpg\" />";
-table.rows[1].cells[1].innerHTML = "<img src=\"resource\\" + cards2[0] + ".jpg\" />";
-table.rows[1].cells[2].innerHTML = "<img src=\"resource\\" + cards2[1] + ".jpg\" />";
+table.rows[1].cells[1].innerHTML = "<img src=\"resource\\cardback.png\" />";
+table.rows[1].cells[2].innerHTML = "<img src=\"resource\\" + cards1[1] + ".jpg\" />";
+table.rows[3].cells[1].innerHTML = "<img src=\"resource\\" + cards2[0] + ".jpg\" />";
+table.rows[3].cells[2].innerHTML = "<img src=\"resource\\" + cards2[1] + ".jpg\" />";
 showScore();
 
 // Player chooses HIT (get one more card)
 function hit() {
     getNewCard("player2");
+	var uBust = "You BUST!";
+	var setUBust = uBust.fontcolor("yellow");
     if(checkIfBust("player2")) {
-        document.getElementById("bulletin").innerHTML = "You BUST!";
+        document.getElementById("bulletin").innerHTML = setUBust;
         document.getElementById("hit").disabled = true;
         document.getElementById("stand").disabled = true;
         winner = "player1";
@@ -59,12 +61,14 @@ function stand() {
     hasStood = true;
     document.getElementById("hit").disabled = true;
     document.getElementById("stand").disabled = true;
-    table.rows[0].cells[1].innerHTML = "<img src=\"resource\\" + cards1[0] + ".jpg\" />";
+    table.rows[1].cells[1].innerHTML = "<img src=\"resource\\" + cards1[0] + ".jpg\" />";
     // Computer has one more card
     while (calcResult("player1") < 17) {
         getNewCard("player1");
+		var cBust = "Computer BUST!";
+		var setCBust = cBust.fontcolor("yellow");
         if(checkIfBust("player1")) {
-            document.getElementById("bulletin").innerHTML = "Computer BUST!";
+            document.getElementById("bulletin").innerHTML = setCBust;
             document.getElementById("hit").disabled = true;
             document.getElementById("stand").disabled = true;
             winner = "player2";
@@ -74,12 +78,18 @@ function stand() {
     if (winner == "") {
         var result1 = calcResult("player1");
         var result2 = calcResult("player2");
+		var push = "PUSH!";
+		var setPush = push.fontcolor("yellow");
+		var uLose = "You LOSE!";
+		var setULose = uLose.fontcolor("yellow");
+		var uWin = "You WIN!";
+		var setUWin = uWin.fontcolor("yellow");
         if (result1 == result2) {
-            document.getElementById("bulletin").innerHTML = "PUSH!";
+            document.getElementById("bulletin").innerHTML = setPush;
         } else if (result1 > result2) {
-            document.getElementById("bulletin").innerHTML = "You LOSE!";
+            document.getElementById("bulletin").innerHTML = setULose;
         } else if (result1 < result2) {
-            document.getElementById("bulletin").innerHTML = "You WIN!";
+            document.getElementById("bulletin").innerHTML = setUWin;
         }
     }
     showScore();
@@ -91,12 +101,12 @@ function getNewCard(player) {
     if (player == "player1") {
         var len = cards1.length;
         cards1[len] = card;
-        table.rows[0].cells[len + 1].innerHTML = 
+        table.rows[1].cells[len + 1].innerHTML = 
             "<img src=\"resource\\" + cards1[len] + ".jpg\" />";
     } else if (player == "player2") {
         var len = cards2.length;
         cards2[len] = card;
-        table.rows[1].cells[len + 1].innerHTML = 
+        table.rows[3].cells[len + 1].innerHTML = 
             "<img src=\"resource\\" + cards2[len] + ".jpg\" />";
     }
     return card;
@@ -180,8 +190,10 @@ function calcResult(player) {
 function showScore() {
     var result1 = calcResult("player1");
     var result2 = calcResult("player2");
-    document.getElementById("score").innerHTML = 
-        "[Computer : You = " + (hasStood == true ? result1 : "?") + " : " + result2 + "]";
+	var str = "[Computer : You = " + (hasStood == true ? result1 : "?") + " : " + result2 + "]";
+	var setStr = str.fontcolor("yellow");
+    document.getElementById("score").innerHTML = setStr;
+        
 }
 
 function restart() {
@@ -209,15 +221,17 @@ function restart() {
     // Players' cards
     cards1 = [getNewCard(), getNewCard()];
     cards2 = [getNewCard(), getNewCard()];
-    table.rows[0].cells[1].innerHTML = "<img src=\"resource\\cardback.png\" />";
-    table.rows[0].cells[2].innerHTML = "<img src=\"resource\\" + cards1[1] + ".jpg\" />";
-    table.rows[1].cells[1].innerHTML = "<img src=\"resource\\" + cards2[0] + ".jpg\" />";
-    table.rows[1].cells[2].innerHTML = "<img src=\"resource\\" + cards2[1] + ".jpg\" />";
+    table.rows[1].cells[1].innerHTML = "<img src=\"resource\\cardback.png\" />";
+    table.rows[1].cells[2].innerHTML = "<img src=\"resource\\" + cards1[1] + ".jpg\" />";
+    table.rows[3].cells[1].innerHTML = "<img src=\"resource\\" + cards2[0] + ".jpg\" />";
+    table.rows[3].cells[2].innerHTML = "<img src=\"resource\\" + cards2[1] + ".jpg\" />";
     // Clear the desk
-    for (var i = 3; i < table.rows[0].cells.length; i++) {
-        table.rows[0].cells[i].innerHTML = "";
+    for (var i = 3; i < table.rows[1].cells.length; i++) {
         table.rows[1].cells[i].innerHTML = "";
+        table.rows[3].cells[i].innerHTML = "";
     }
     showScore();
-    document.getElementById("bulletin").innerHTML = "Please make a choice.";
+	var str2 = "Please make a choice.";
+	var setStr2 = str2.fontcolor("yellow");
+    document.getElementById("bulletin").innerHTML = setStr2;
 }
