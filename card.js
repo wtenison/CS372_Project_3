@@ -94,8 +94,13 @@ function testDeckShuffle(){
     document.getElementById("deckShuffleTest1").innerHTML=d1.printDeck();
     d1.shuffle();
     document.getElementById("deckShuffleTest2").innerHTML=d1.printDeck();
-
-
 }
 
+function testDeckAdd(){
+    document.getElementById("deckAddTest").innerHTML="AAAAAA";
+}
+
+function testDeckRemove(){
+    document.getElementById("deckRemoveTest").innerHTML="AAAAAAA";
+}
 
