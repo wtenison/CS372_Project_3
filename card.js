@@ -11,6 +11,14 @@ class Card{
 
         this.picture = this.suit + cardnum + ".jpg";
     }
+
+
+
+
+    printCard(){
+        return this.number + " " + this.suit;
+    }
+
 }
 
 class Deck{
@@ -27,13 +35,24 @@ class Deck{
     }
 
     getCard(index){
-        let card = this.cards[index];
-        return card.number + " " + card.suit + " " + card.picture;
+        return this.cards[index]
     }
 
     getSize(){
-        return cards.length;
+        return this.cards.length;
     }
+
+    printDeck(){
+        var i;
+        var text = "";
+        for(i = 0; i < this.getSize();i++){
+           text += this.getCard(i).printCard() + "  ";
+        }
+        return text;
+    }
+
+
+
 
 }
 
@@ -48,13 +67,21 @@ function testCardCreation(){
 function testDeckCreation(){
     let d1 = new Deck();
     //document.getElementById("deckTest").innerHTML=d1.getCard(13);
-    var i;
-    text ="";
-    for(i = 0; i < d1.getSize(); i++){
-        text += d1.getCard(i) + "<br>";
-    }
-    document.getElementById("deckTest").innerHTML=text;
+    //var i;
+    //text ="";
+    //document.getElementById("deckTest").innerHTML= d1.getSize();
+    //for(i = 0; i < d1.getSize(); i++){
+    //    text += d1.getCard(i).printCard() + "  ";
+    //}
+    document.getElementById("deckTest").innerHTML=d1.printDeck();
     //document.getElementById("deckTest").innerHTML="it doooo";
+}
+
+function testDeckShuffle(){
+    let d1 = new Deck();
+
+
+
 }
 
 
