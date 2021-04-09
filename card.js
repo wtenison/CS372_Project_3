@@ -17,8 +17,9 @@ class Card{
         this.picture = this.suit + cardnum + ".jpg";
     }
 
-
-
+    compare(card){
+        return this.number == card.number && this.suit == card.suit;
+    }
 
     printCard(){
         return this.number + " " + this.suit;
@@ -124,7 +125,13 @@ function testCardCreation(){
 }
 
 function testCardComparison(){
-    document.getElementById("cardComparisonTest").innerHTML="u";
+    let c1 = new Card(1, "heart");
+    let c2 = new Card(1, "heart");
+    let c3 = new Card(2, "spade");
+
+    document.getElementById("cardComparisonTest1").innerHTML=c1.compare(c2);
+    document.getElementById("cardComparisonTest2").innerHTML=c2.compare(c3);
+    document.getElementById("cardComparisonTest3").innerHTML=c3.compare(c1);
 }
 
 function testDeckCreation(){
