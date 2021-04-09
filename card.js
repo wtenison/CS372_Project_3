@@ -51,6 +51,17 @@ class Deck{
         return text;
     }
 
+    shuffle(){
+        var i;
+        for(i = 0; i < this.getSize(); i++){
+            var randCardNum = Math.floor(Math.random() * this.getSize());
+            let tempCard = this.cards[i];
+            this.cards[i] = this.cards[randCardNum];
+            this.cards[randCardNum] = tempCard;
+        }
+        return this.cards[0].printCard();
+    }
+
 
 
 
@@ -79,7 +90,10 @@ function testDeckCreation(){
 
 function testDeckShuffle(){
     let d1 = new Deck();
-
+    d1.shuffle();
+    document.getElementById("deckShuffleTest1").innerHTML=d1.printDeck();
+    d1.shuffle();
+    document.getElementById("deckShuffleTest2").innerHTML=d1.printDeck();
 
 
 }
