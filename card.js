@@ -60,7 +60,7 @@ class Deck{
         else{
             var i;
             for(i = 0; i < this.getSize(); i++){
-                if(this.cards[i].number == op.number && this.cards[i].number ){
+                if(this.cards[i].compare(op)){
                     this.cards.splice(i, 1);
                     break;
                 }
