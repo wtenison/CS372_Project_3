@@ -1,4 +1,9 @@
 
+
+//Card and deck classes
+//Actual code to be implemented into Blackjack and other games
+//seperate into seperate files when done
+
 class Card{
     constructor(number, suit){
         this.number = number;
@@ -42,6 +47,27 @@ class Deck{
         return this.cards.length;
     }
 
+    add(card){
+        this.cards[this.getSize()] = card;
+        return this.cards[this.getSize()];
+    }
+
+    remove(op){
+        if(typeof(op) == "number"){
+            this.cards.splice(op,1);
+        }
+        else{
+            var i;
+            for(i = 0; i < this.getSize(); i++){
+                if(this.cards[i].number == op.number && this.cards[i].number ){
+                    this.cards.splice(i, 1);
+                    break;
+                }
+            }
+        }
+
+    }
+
     printDeck(){
         var i;
         var text = "";
@@ -67,6 +93,27 @@ class Deck{
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//test functions
+//to be used in conjunction with testing.html as "unit tests"
+
 function test(){
     return 27;
 }
@@ -75,6 +122,11 @@ function testCardCreation(){
     let c1 = new Card(3,"heart");
     document.getElementById("cardTest").innerHTML=c1.number + " " + c1.suit + " " + c1.picture;
 }
+
+function testCardComparison(){
+    document.getElementById("cardComparisonTest").innerHTML="u";
+}
+
 function testDeckCreation(){
     let d1 = new Deck();
     //document.getElementById("deckTest").innerHTML=d1.getCard(13);
@@ -97,10 +149,18 @@ function testDeckShuffle(){
 }
 
 function testDeckAdd(){
-    document.getElementById("deckAddTest").innerHTML="AAAAAA";
+    let d1 = new Deck();
+    let c1 = new Card(87, "WWWWWWWWWWWWWWWWWWWW");
+    d1.add(c1);
+    document.getElementById("deckAddTest").innerHTML=d1.printDeck() + " NUMBER OF CARDS: " + d1.getSize();
 }
 
 function testDeckRemove(){
-    document.getElementById("deckRemoveTest").innerHTML="AAAAAAA";
+    let d1 = new Deck();
+    let c1 = new Card(1,"spade");
+    d1.remove(0);
+    document.getElementById("deckRemoveTest1").innerHTML=d1.printDeck() + " NUMBER OF CARDS: " + d1.getSize();
+    d1.remove(c1);
+    document.getElementById("deckRemoveTest2").innerHTML=d1.printDeck() + " NUMBER OF CARDS: " + d1.getSize();
 }
 
