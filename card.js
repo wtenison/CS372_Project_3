@@ -25,6 +25,10 @@ class Card{
         return this.number + " " + this.suit;
     }
 
+    getCardImage(){
+        return "resource\\"+this.picture;
+    }
+
 }
 
 class Deck{
@@ -88,16 +92,18 @@ class Deck{
         }
         return this.cards[0].printCard();
     }
-
-
-
-
 }
 
 
+//helper functions
+//these are used to have javascript write to html
+function changeInnerHTML(element, changeValue){
+    document.getElementById(element).innerHTML=changeValue;
+}
 
-
-
+function changeImage(element, image){
+    document.getElementById(element).src=image;
+}
 
 
 
@@ -171,3 +177,21 @@ function testDeckRemove(){
     document.getElementById("deckRemoveTest2").innerHTML=d1.printDeck() + " NUMBER OF CARDS: " + d1.getSize();
 }
 
+function testCardImage(){
+   let c1 = new Card(1, "spade");
+   document.getElementById("imageTest").src=c1.getCardImage();
+   document.getElementById("imageTest2").innerHTML=c1.getCardImage();
+}
+
+function testChangeElement(){
+    var source = "changeElementTest";
+    var s = "yummy";
+    changeInnerHTML(source, s);
+}
+
+
+function testChangeImage(){
+    let c1 = new Card(3,"heart");
+    var source = "changeImageTest";
+    changeImage(source, c1.getCardImage());
+}
