@@ -16,18 +16,15 @@
 
 
         <button type="button" id="addnewplayer" onclick="addPlayer();">add Player</button>
+        <button type="button" id="start" onclick="start()">start!</button>
+        <button type="button" id="dealdealer" onclick="dealDealer();">deal dealer</button>
         <p id="test">test</p>
 
         <table id="dealer">
             <tr>
-                <!--<td id="misc0">
-                    <button type="button" id="hit0" onclick="please(0);">hit</button> <br>
-                    <button type="button" id="stand0" onclick="tryEmpty();">stand</button> <br>
-
-                    <button type="button" onclick="alert('seems aggressive')">fight again</button> <br>
-
-                    <p1>total: </p1> <p1 id="total0">0</p1>
-                </td>-->
+                <td id="dealermisc">
+                    <p1>total: </p1> <p1 id="dealertotal"></p1>
+                </td>
                 <td>
                     <img src="resource\computer.jpg" />
                 </td>
@@ -42,12 +39,12 @@
         <table id="player">
             <tr>
                 <td id="misc0">
-                    <button type="button" id="hit0" onclick="please(0);">hit</button> <br>
-                    <button type="button" id="stand0" onclick="tryEmpty();">stand</button> <br>
+                    <button type="button" style="display:none;" id="hit0" onclick="hit(0);">hit</button> <br>
+                    <button type="button" style="display:none;" id="stand0" onclick="stand(0);">stand</button> <br>
                     <!--
                     <button type="button" onclick="alert('seems aggressive')">fight again</button> <br>
                     -->
-                    <p1>total: </p1> <p1 id="total0">0</p1>
+                    <p1>total: </p1> <p1 id="total0" style="display:none">0</p1>
                 </td>
                 <td>
                     <img src="resource\player.jpg" />

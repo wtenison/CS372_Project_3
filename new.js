@@ -101,6 +101,56 @@ class Deck{
     }
 }
 
+function dealCard(num){
+    var img = new Image();
+    var randCardNum = Math.floor(Math.random() * deck.getSize());
+    var player = document.getElementById("player");
+    var handTotal = document.getElementById("total"+num);
+    var total = Number(handTotal.innerHTML);
+
+    img.src = deck.getCard(randCardNum).getCardImage();
+    player.rows[num].cells[2+hands[num].getSize()].innerHTML = "<img src=" + img.src + " />";
+    total+= deck.getCard(randCardNum).getValue();
+    handTotal.innerHTML=total;
+
+    hands[num].add(deck.getCard(randCardNum));
+    deck.remove(randCardNum);
+
+}
+
+function dealDealer(){
+    var img = new Image();
+    var randCardNum = Math.floor(Math.random() * deck.getSize());
+    var player = document.getElementById("dealer");
+    var handTotal = document.getElementById("dealertotal");
+    var total = Number(handTotal.innerHTML);
+
+    img.src = deck.getCard(randCardNum).getCardImage();
+    player.rows[0].cells[2+dealerDeck.getSize()].innerHTML = "<img src=" + img.src + " />";
+    total+= deck.getCard(randCardNum).getValue();
+    handTotal.innerHTML=total;
+
+    dealerDeck.add(deck.getCard(randCardNum));
+    deck.remove(randCardNum);
+}
+
+
+function dealerTurn(){
+    var img = new Image();
+    img.src= dealerDeck.getCard(0).getCardImage();
+    var player = document.getElementById("dealer");
+    var total = dealerDeck.getCard(0).getValue()+dealerDeck.getCard(1).getValue();
+    player.rows[0].cells[2].innerHTML = "<img src=" + img.src + " />";
+    document.getElementById("dealertotal").innerHTML = total;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -114,12 +164,34 @@ var numPlayers = 1;
 var donePlayers = 0;
 
 
-
+let dealerDeck = new Deck(0);
 let deck = new Deck();
 let hand = new Deck(0);
 var hands = [hand];
-var numCards = 0;
 //var total = 0;
+
+function start(){
+    var img = new Image();
+    img.src="resource\\cardback.png";
+
+
+    document.getElementById("addnewplayer").style.display= "none";
+    document.getElementById("start").style.display= "none";
+    document.getElementById("dealertotal").innerHTML = 0;
+
+    var i;
+    for(i = 0; i < numPlayers; i++){
+        document.getElementById("hit" + i).style.display = "block";
+        document.getElementById("stand" + i).style.display = "block";
+        document.getElementById("total" + i).style.display = "block";
+        dealCard(i);
+        dealCard(i);
+    }
+    dealDealer();
+    dealDealer();
+    document.getElementById("dealer").rows[0].cells[2].innerHTML = "<img src=" + img.src + " />";
+    document.getElementById("dealertotal").innerHTML = "?";
+}
 
 function addPlayer(){
     if(!playerStringFlag){
@@ -138,7 +210,8 @@ function addPlayer(){
     newText = newText.replace("hit0", "hit" + numPlayers);
     newText = newText.replace("stand0", "stand" + numPlayers);
     newText = newText.replace("total0", "total" + numPlayers);
-    newText = newText.replace("please(0)", "please(" + numPlayers + ")");
+    newText = newText.replace("hit(0)", "hit(" + numPlayers + ")");
+    newText = newText.replace("stand(0)", "stand(" + numPlayers + ")");
 
     node.innerHTML = currentText+newText;
     //var node = document.getElementById("test");
@@ -155,31 +228,30 @@ function addPlayer(){
 }
 
 
-function please(num){
-    document.getElementById("addnewplayer").style.display = "none";
-    var img = new Image();
-    var randCardNum = Math.floor(Math.random() * deck.getSize());
-    var player = document.getElementById("player");
-    var handTotal = document.getElementById("total"+num);
-    var total = Number(handTotal.innerHTML);
+function hit(num){
 
-    img.src = deck.getCard(randCardNum).getCardImage();
-    player.rows[num].cells[2+hands[num].getSize()].innerHTML = "<img src=" + img.src + " />";
-    total+= deck.getCard(randCardNum).getValue();
-    handTotal.innerHTML=total;
-
+    dealCard(num);
+    var total = Number(document.getElementById("total"+num).innerHTML)
 
     if(total > 21){
         var bust = document.createElement("P");
         bust.innerHTML = "BUST!";
         document.getElementById("misc" + num).appendChild(bust);
         document.getElementById("hit" + num).style.display = "none";
+        document.getElementById("stand" + num).style.display = "none";
+        donePlayers++;
+        if(donePlayers==numPlayers){
+            dealerTurn();
+        }
     }
-    hands[num].add(deck.getCard(randCardNum));
-    deck.remove(randCardNum);
-    numCards++;
+
 }
 
-function tryEmpty(){
-    alert(deck.getSize());
+function stand(num){
+    document.getElementById("hit" + num).style.display = "none";
+    document.getElementById("stand" + num).style.display = "none";
+    donePlayers++;
+    if(donePlayers==numPlayers){
+        dealerTurn();
+    }
 }
