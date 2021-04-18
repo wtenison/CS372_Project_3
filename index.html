@@ -7,6 +7,7 @@
 </head>
 <style type="text/css">
     body {
+        overflow: hidden;
         background-image: url("bg.jpg");
         background-repeat: no-repeat;
         font-family: 'Times New Roman', Helvetica, sans-serif;
@@ -55,7 +56,8 @@
     }
     
     #bank-label,
-    #bank-amnt {
+    #bank-amnt,
+    #betting-amnt {
         display: -webkit-inline-box;
         margin: 2px;
         margin-top: 10px;
@@ -78,10 +80,16 @@
         ;
     }
     
-    #bet-amnt {
+    #total-bet-amnt {
         height: 40px;
         width: 50px;
         margin-top: 30px;
+        margin-left: 250px;
+    }
+    
+    #deal {
+        height: 40px;
+        width: 50px;
         margin-left: 250px;
     }
 </style>
@@ -155,6 +163,7 @@
             <div id="bank-label">Bank:</div>
             <div id="bank-amnt" value="1000"></div>
             <input type="button" value="ALL IN" onclick="allIn();">
+            <div id="betting-amnt" value="0"></div>
         </div>
         <input type="button" value="1" onclick="addOne();" id="one">
         <input type="button" value="5" onclick="addFive();" id="five">
@@ -163,7 +172,8 @@
         <input type="button" value="100" onclick="addHundred();" id="hundred">
         <input type="button" value="500" onclick="addFivehundred();" id="fivehundred">
         <input type="button" value="1000" onclick="addThousand();" id="thousand">
-        <p style="color:rgb(49, 160, 104); font-size:20px;" id="bet-amnt"></p>
+        <p style="color:rgb(49, 160, 104); font-size:20px;" id="total-bet-amnt"></p>
+        <input type="button" value="DEAL" onclick="deal();" id="deal">
     </div>
 
     <hr>
