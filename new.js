@@ -1,4 +1,3 @@
-
 class Card{
     constructor(number, suit){
         this.number = number;
@@ -134,7 +133,6 @@ function dealDealer(){
     deck.remove(randCardNum);
 }
 
-
 function dealerTurn(){
     var img = new Image();
     img.src= dealerDeck.getCard(0).getCardImage();
@@ -149,20 +147,11 @@ function dealerTurn(){
 
 
 
-
-
-
-
-
-
 var playerString;
 var playerStringFlag = false;
 
-
-
 var numPlayers = 1;
 var donePlayers = 0;
-
 
 let dealerDeck = new Deck(0);
 let deck = new Deck();
@@ -170,10 +159,11 @@ let hand = new Deck(0);
 var hands = [hand];
 //var total = 0;
 
+// Function that initializes the game
 function start(){
+    
     var img = new Image();
     img.src="resource\\cardback.png";
-
 
     document.getElementById("addnewplayer").style.display= "none";
     document.getElementById("start").style.display= "none";
@@ -187,12 +177,20 @@ function start(){
         dealCard(i);
         dealCard(i);
     }
+
+    var db = document.getElementById("dealdealer");
+    if (db.style.display === "none") {
+      db.style.display = "block";
+    }
+
     dealDealer();
     dealDealer();
     document.getElementById("dealer").rows[0].cells[2].innerHTML = "<img src=" + img.src + " />";
     document.getElementById("dealertotal").innerHTML = "?";
+    document.getElementById("dealertotal").disable
 }
 
+// Function to add players into the game
 function addPlayer(){
     if(!playerStringFlag){
         playerString = document.getElementById("player").innerHTML;
@@ -241,7 +239,7 @@ function hit(num){
         document.getElementById("stand" + num).style.display = "none";
         donePlayers++;
         if(donePlayers==numPlayers){
-            dealerTurn();
+            document.getElementById("dealdealer").disabled = !document.getElementById("dealdealer").disabled;
         }
     }
 
@@ -252,6 +250,6 @@ function stand(num){
     document.getElementById("stand" + num).style.display = "none";
     donePlayers++;
     if(donePlayers==numPlayers){
-        dealerTurn();
+        document.getElementById("dealdealer").disabled = !document.getElementById("dealdealer").disabled;
     }
 }
