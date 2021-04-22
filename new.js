@@ -180,7 +180,7 @@ function dealerTurn(){
         dealDealer();
         total = document.getElementById("dealertotal").innerHTML;
     }
-
+    checkWin();
 }
 
 
@@ -287,7 +287,68 @@ function addPlayer(){
 }
 
 function checkWin(){
+    var dealerScore = Number(document.getElementById("dealertotal").innerHTML);
+    var dealerHasBlackjack = false;
+    if (dealerScore == 21 && dealerDeck.getSize() == 2){
+        dealerHasBlackjack = true;
+    }
 
+
+    var i;
+    for(i = 0; i < hands.length; i++){
+        var player = document.getElementById("total" + i);
+        var playerScore = Number(player.innerHTML);
+        if(dealerHasBlackjack){
+            alert("player loses by dealer blackjack");/*
+            var messege = document.createElement("P");
+            messege.innerHTML = "YOU LOSE!";
+            document.getElementById("misc" + i).appendChild(messege);
+            document.getElementById("lockedbetamount" + i).innerHTML = 0;*/
+        }
+        else if(playerVictory[i] == 2){
+            alert("player wins by blackjack")/*
+            var messege = document.createElement("P");
+            messege.innerHTML = "YOU WIN!";
+            document.getElementById("misc" + num).appendChild(messege);
+            var bet = document.getElementById("lockedbetamount" + i);
+            var winnings = Math.floor(bet.innerHTML * 1.5);
+            bet.getinnerHTML = 0;
+            playerScore.innerHTML += winnings;*/
+        }
+        else if(playerVictory[i] == 3){
+            alert("player wins by draw 5");/*
+            var messege = document.createElement("P");
+            messege.innerHTML = "YOU WIN!";
+            document.getElementById("misc" + num).appendChild(messege);
+            var bet = document.getElementById("lockedbetamount" + i);
+            var winnings = Math.floor(bet.innerHTML);
+            bet.getinnerHTML = 0;
+            playerScore.innerHTML += winnings;*/
+        }
+        else if(playerScore > 21){
+            alert("player loses by bust");
+        }
+        else if(dealerScore > 21){
+            alert("player wins by dealer bust");
+        }
+        else if(dealerScore >= playerScore){
+            alert("player loses by high score");/*
+            var messege = document.createElement("P");
+            messege.innerHTML = "YOU LOSE!";
+            document.getElementById("misc" + i).appendChild(messege);
+            document.getElementById("lockedbetamount" + i).innerHTML = 0;*/
+        }
+        else{
+            alert("player wins by high score");/*
+            var messege = document.createElement("P");
+            messege.innerHTML = "YOU WIN!";
+            document.getElementById("misc" + num).appendChild(messege);
+            var bet = document.getElementById("lockedbetamount" + i);
+            var winnings = Math.floor(bet.innerHTML);
+            bet.getinnerHTML = 0;
+            playerScore.innerHTML += winnings;*/
+        }
+    }
 }
 
 function lockBet(num){
