@@ -15,7 +15,7 @@
 
         <!-- Initializes Buttons -->
         <button type="button" id="addnewplayer" onclick="addPlayer();">add Player</button>
-        <button type="button" id="start" onclick="start()">start!</button>
+        <button type="button" id="start" onclick="start()" style="display:none">start!</button>
         <button type="button" id="dealdealer" disabled="disabled" onclick="dealDealer();">deal dealer</button>
         <script>
         document.getElementById("dealdealer").style.display = "none";
@@ -53,6 +53,13 @@
                 <td>
                     <img src="resource\player.jpg" />
                 </td>
+                <td id="bet0">
+                    <p1>total:$</p1> <p1 id="money0">100</p1> <br>
+                    <input type="text" id="betamount0" style="width:50px;"> <p1 id="lockbetamountformat0"> </p1> <p1 id="lockedbetamount0"></p1> <br>
+                    <button type="button" style="display:block;" id="setbet0" onclick="lockBet(0)">lock bet</button> <br>
+                    <p1 id="beterror0"></p1>
+                </td>
+
                 <td></td>
                 <td></td>
                 <td></td>
