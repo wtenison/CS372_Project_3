@@ -8,17 +8,18 @@ var hasStood = false; // Mark if the player chose stand
 
 // All cards
 var cards = [
-"club01", "club02", "club03", "club04", "club05", "club06", "club07", 
-"club08", "club09", "club10", "club11", "club12", "club13", "diamond01", 
-"diamond02", "diamond03", "diamond04", "diamond05", "diamond06", "diamond07",
-"diamond08", "diamond09", "diamond10", "diamond11", "diamond12", "diamond13", 
-"heart01", "heart02", "heart03", "heart04", "heart05", "heart06", "heart07", 
-"heart08", "heart09", "heart10", "heart11", "heart12", "heart13", 
-"spade01", "spade02", "spade03", "spade04", "spade05", "spade06", "spade07", 
-"spade08", "spade09", "spade10", "spade11", "spade12", "spade13"];
+    "club01", "club02", "club03", "club04", "club05", "club06", "club07",
+    "club08", "club09", "club10", "club11", "club12", "club13", "diamond01",
+    "diamond02", "diamond03", "diamond04", "diamond05", "diamond06", "diamond07",
+    "diamond08", "diamond09", "diamond10", "diamond11", "diamond12", "diamond13",
+    "heart01", "heart02", "heart03", "heart04", "heart05", "heart06", "heart07",
+    "heart08", "heart09", "heart10", "heart11", "heart12", "heart13",
+    "spade01", "spade02", "spade03", "spade04", "spade05", "spade06", "spade07",
+    "spade08", "spade09", "spade10", "spade11", "spade12", "spade13"
+];
 
 // Get random number
-var getRand = function (begin, end) {
+var getRand = function(begin, end) {
     return Math.floor(Math.random() * (end - begin)) + begin;
 }
 
@@ -45,9 +46,9 @@ showScore();
 // Player chooses HIT (get one more card)
 function hit() {
     getNewCard("player2");
-	var uBust = "You BUST!";
-	var setUBust = uBust.fontcolor("yellow");
-    if(checkIfBust("player2")) {
+    var uBust = "You BUST!";
+    var setUBust = uBust.fontcolor("yellow");
+    if (checkIfBust("player2")) {
         document.getElementById("bulletin").innerHTML = setUBust;
         document.getElementById("hit").disabled = true;
         document.getElementById("stand").disabled = true;
@@ -65,31 +66,34 @@ function stand() {
     // Computer has one more card
     while (calcResult("player1") < 17) {
         getNewCard("player1");
-		var cBust = "Computer BUST!";
-		var setCBust = cBust.fontcolor("yellow");
-        if(checkIfBust("player1")) {
+        var cBust = "Computer BUST!";
+        var setCBust = cBust.fontcolor("yellow");
+        if (checkIfBust("player1")) {
             document.getElementById("bulletin").innerHTML = setCBust;
             document.getElementById("hit").disabled = true;
             document.getElementById("stand").disabled = true;
             winner = "player2";
+            //wonBet();
         }
     }
     // If both players don't have BUST, the higher score wins
     if (winner == "") {
         var result1 = calcResult("player1");
         var result2 = calcResult("player2");
-		var push = "PUSH!";
-		var setPush = push.fontcolor("yellow");
-		var uLose = "You LOSE!";
-		var setULose = uLose.fontcolor("yellow");
-		var uWin = "You WIN!";
-		var setUWin = uWin.fontcolor("yellow");
+        var push = "PUSH!";
+        var setPush = push.fontcolor("yellow");
+        var uLose = "You LOSE!";
+        var setULose = uLose.fontcolor("yellow");
+        var uWin = "You WIN!";
+        var setUWin = uWin.fontcolor("yellow");
         if (result1 == result2) {
             document.getElementById("bulletin").innerHTML = setPush;
         } else if (result1 > result2) {
             document.getElementById("bulletin").innerHTML = setULose;
+            //lostBet();
         } else if (result1 < result2) {
             document.getElementById("bulletin").innerHTML = setUWin;
+            //wonBet();
         }
     }
     showScore();
@@ -101,12 +105,12 @@ function getNewCard(player) {
     if (player == "player1") {
         var len = cards1.length;
         cards1[len] = card;
-        table.rows[1].cells[len + 1].innerHTML = 
+        table.rows[1].cells[len + 1].innerHTML =
             "<img src=\"resource\\" + cards1[len] + ".jpg\" />";
     } else if (player == "player2") {
         var len = cards2.length;
         cards2[len] = card;
-        table.rows[3].cells[len + 1].innerHTML = 
+        table.rows[3].cells[len + 1].innerHTML =
             "<img src=\"resource\\" + cards2[len] + ".jpg\" />";
     }
     return card;
@@ -138,6 +142,7 @@ function checkIfBust(player) {
             result += c;
         }
         if (result > 21) {
+            //lostBet();
             return true;
         } else {
             return false;
@@ -190,10 +195,10 @@ function calcResult(player) {
 function showScore() {
     var result1 = calcResult("player1");
     var result2 = calcResult("player2");
-	var str = "[Computer : You = " + (hasStood == true ? result1 : "?") + " : " + result2 + "]";
-	var setStr = str.fontcolor("yellow");
+    var str = "[Computer : You = " + (hasStood == true ? result1 : "?") + " : " + result2 + "]";
+    var setStr = str.fontcolor("yellow");
     document.getElementById("score").innerHTML = setStr;
-        
+
 }
 
 function restart() {
@@ -203,14 +208,15 @@ function restart() {
     winner = ""; // Winner: player1 - computer /player2 - player
     hasStood = false; // Mark if the player chose stand
     cards = [
-    "club01", "club02", "club03", "club04", "club05", "club06", "club07", 
-    "club08", "club09", "club10", "club11", "club12", "club13", "diamond01", 
-    "diamond02", "diamond03", "diamond04", "diamond05", "diamond06", "diamond07",
-    "diamond08", "diamond09", "diamond10", "diamond11", "diamond12", "diamond13", 
-    "heart01", "heart02", "heart03", "heart04", "heart05", "heart06", "heart07", 
-    "heart08", "heart09", "heart10", "heart11", "heart12", "heart13", 
-    "spade01", "spade02", "spade03", "spade04", "spade05", "spade06", "spade07", 
-    "spade08", "spade09", "spade10", "spade11", "spade12", "spade13"];
+        "club01", "club02", "club03", "club04", "club05", "club06", "club07",
+        "club08", "club09", "club10", "club11", "club12", "club13", "diamond01",
+        "diamond02", "diamond03", "diamond04", "diamond05", "diamond06", "diamond07",
+        "diamond08", "diamond09", "diamond10", "diamond11", "diamond12", "diamond13",
+        "heart01", "heart02", "heart03", "heart04", "heart05", "heart06", "heart07",
+        "heart08", "heart09", "heart10", "heart11", "heart12", "heart13",
+        "spade01", "spade02", "spade03", "spade04", "spade05", "spade06", "spade07",
+        "spade08", "spade09", "spade10", "spade11", "spade12", "spade13"
+    ];
     // Shuffle the deck
     for (var i = 0; i < 1000; i++) {
         rand = getRand(1, 52);
@@ -231,7 +237,7 @@ function restart() {
         table.rows[3].cells[i].innerHTML = "";
     }
     showScore();
-	var str2 = "Please make a choice.";
-	var setStr2 = str2.fontcolor("yellow");
+    var str2 = "Please make a choice.";
+    var setStr2 = str2.fontcolor("yellow");
     document.getElementById("bulletin").innerHTML = setStr2;
 }

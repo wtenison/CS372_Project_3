@@ -1,9 +1,9 @@
 document.getElementById("bank-amnt").innerHTML = 1000; // Total money in bank
-document.getElementById("total-bet-amnt").innerHTML = "$" + 0; // Total amount being bet
-document.getElementById("betting-amnt").innerHTML = 0; // Bet amount that's added to total
-var amount = 0;
-var bet = 0;
-var currentBet = 0; // For win/lose multiplier
+document.getElementById("deal-amnt").innerHTML = "$" + 0; // Total amount being bet
+document.getElementById("betting-amnt").innerHTML = 0; // Bet amount that's added to deal amount
+var amount = 0; // For number value
+var bet = 0; // For number value
+var currentBet = 0; // For winning bet multiplier
 
 function addOne() {
     var x = document.getElementById("bank-amnt").innerHTML;
@@ -81,17 +81,25 @@ function setBetAmnt(x) {
 function deal() {
     bet += amount;
     currentBet += amount;
-    document.getElementById("total-bet-amnt").innerHTML = "$" + bet;
+    document.getElementById("deal-amnt").innerHTML = "$" + bet;
     document.getElementById("betting-amnt").innerHTML = 0;
     amount = 0;
 
 }
 
 function wonBet() {
+    let bankTotal = document.getElementById("bank-amnt").innerHTML;
     currentBet *= 1.5;
+    currentBet += +bankTotal;
+    document.getElementById("bank-amnt").innerHTML = currentBet;
+    document.getElementById("betting-amnt").innerHTML = 0;
+    document.getElementById("deal-amnt").innerHTML = 0;
 }
 
 function lostBet() {
-    document.getElementById("bank-amnt").innerHTML = 0;
+    document.getElementById("betting-amnt").innerHTML = 0;
+    document.getElementById("deal-amnt").innerHTML = 0;
+    bet = 0;
+    currentBet = 0;
 
 }
