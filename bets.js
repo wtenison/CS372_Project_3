@@ -93,12 +93,14 @@ function wonBet() {
     currentBet += +bankTotal;
     document.getElementById("bank-amnt").innerHTML = currentBet;
     document.getElementById("betting-amnt").innerHTML = 0;
-    document.getElementById("deal-amnt").innerHTML = 0;
+    document.getElementById("deal-amnt").innerHTML = "$" + 0;
+    currentBet = 0;
+    bet = 0;
 }
 
 function lostBet() {
     document.getElementById("betting-amnt").innerHTML = 0;
-    document.getElementById("deal-amnt").innerHTML = 0;
+    document.getElementById("deal-amnt").innerHTML = "$" + 0;
     bet = 0;
     currentBet = 0;
 
