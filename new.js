@@ -134,6 +134,18 @@ function dealCard(num){
         temptot-=10;
         numAces--;
     }
+
+    if(total == 21 && hands[num].getSize() == 2){
+            playerVictory[num] = 2;
+            document.getElementById("hit" + num).style.display = "none";
+            document.getElementById("stand" + num).style.display = "none";
+            var messege = document.getElementById("messege" + num);
+            messege.innerHTML += "<br>BLACKJACK!";
+            document.getElementById("misc" + num).appendChild(messege);
+            donePlayers++;
+
+    }
+
     handTotal.innerHTML = temptot;
 
     deck.remove(randCardNum);
@@ -175,15 +187,50 @@ function dealerStart(){
 
 function dealerTurn(){
     var total = document.getElementById("dealertotal").innerHTML;
-    var i;
-    while(total < 17){
+    var i = 2;
+    while(total < 17 && i <5){
         dealDealer();
         total = document.getElementById("dealertotal").innerHTML;
+        i++;
+    }
+    if(i == 5){
+        dealerVictoryConditions = 1;
     }
     checkWin();
 }
 
 
+function turnOnBets(){
+    var i;
+
+    for(i = 0; i < numPlayers;i++){
+        var bet = document.getElementById("betamount" + i);
+        var button = document.getElementById("setbet" + i);
+        var lockedbet = document.getElementById("lockedbetamount" + i);
+        var format = document.getElementById("lockbetamountformat" + i);
+        button.style.display = "block";
+        bet.style.display = "block";
+        lockedbet.innerHTML = "";
+        format.innerHTML = "";
+
+    }
+    betsLocked = 0;
+}
+
+function playerLoses(num){
+    var messege = document.getElementById("messege" + num);
+    messege.innerHTML = "YOU LOSE!";
+    document.getElementById("lockedbetamount" + num).innerHTML = 0;
+}
+
+function playerWins(num, multiplier){
+    var messege = document.getElementById("messege" + num);
+    messege.innerHTML = "YOU WIN!";
+    var bet = document.getElementById("lockedbetamount" + num);
+    var bank = document.getElementById("money" + num);
+    bank.innerHTML = parseInt(bank.innerHTML) + bet.innerHTML * multiplier;
+    bet.innerHTML = 0;
+}
 
 
 var playerString;
@@ -197,16 +244,57 @@ var cardStartPosDealer = 2;
 //2 = blackjack
 //3 = 5 card victory
 var playerVictory = [];
-
+var dealerVictoryConditions = 0;
 var numPlayers = 1;
 var donePlayers = 0;
 var betsLocked = 0;
 
 let dealerDeck = new Deck(0);
 let deck = new Deck();
-let hand = new Deck(0);
+var hand = new Deck(0);
 var hands = [hand];
 //var total = 0;
+
+
+function restart(){
+    //reset game logic
+    var i;
+    donePlayers = 0;
+    deck = new Deck();
+    dealerDeck = new Deck(0);
+    turnOnBets();
+
+    //reset html
+    var player = document.getElementById("player");
+    document.getElementById("restart").style.display= "none";
+    document.getElementById("dealertotal").innerHTML = "";
+    for(i = 0; i < numPlayers; i++){
+        document.getElementById("total" + i).innerHTML = "";
+        document.getElementById("messege" + i).innerHTML = "";
+        document.getElementById("betamount" + i).value = "";
+    }
+
+    alert("yas");
+    //clear board for the players
+    for(i = 0; i < numPlayers; i++){
+        playerVictory[i] = 0;
+        let newHand = new Deck(0);
+        hands[i] = newHand;
+        //clear cards for a player
+        var j;
+        for(j = 0; j < 5; j++){
+            player.rows[i].cells[cardStartPos+j].innerHTML = "";
+        }
+    }
+
+    //clear board for the dealer
+    player = document.getElementById("dealer");
+    for(i = 0; i < 5; i++){
+        player.rows[0].cells[cardStartPosDealer+i].innerHTML = "";
+    }
+
+
+}
 
 // Function that initializes the game
 function start(){
@@ -216,6 +304,7 @@ function start(){
 
     document.getElementById("addnewplayer").style.display= "none";
     document.getElementById("start").style.display= "none";
+    document.getElementById("restart").style.display= "none";
     document.getElementById("dealertotal").innerHTML = 0;
 
     var i;
@@ -237,6 +326,9 @@ function start(){
     document.getElementById("dealer").rows[0].cells[cardStartPosDealer].innerHTML = "<img src=" + img.src + " />";
     document.getElementById("dealertotal").innerHTML = "?";
     document.getElementById("dealertotal").disable
+    if(donePlayers==numPlayers){
+        dealerStart();
+    }
 }
 
 // Function to add players into the game
@@ -268,6 +360,7 @@ function addPlayer(){
     newText = newText.replace("beterror0", "beterror" + numPlayers);
     newText = newText.replace("lockbetamountformat0", "lockbetamountformat" + numPlayers);
     newText = newText.replace("lockedbetamount0", "lockedbetamount" + numPlayers);
+    newText = newText.replace("messege0", "messege" + numPlayers);
 
     node.innerHTML = currentText+newText;
     //var node = document.getElementById("test");
@@ -299,56 +392,44 @@ function checkWin(){
         var player = document.getElementById("total" + i);
         var playerScore = Number(player.innerHTML);
         if(dealerHasBlackjack){
-            alert("player loses by dealer blackjack");/*
-            var messege = document.createElement("P");
-            messege.innerHTML = "YOU LOSE!";
-            document.getElementById("misc" + i).appendChild(messege);
-            document.getElementById("lockedbetamount" + i).innerHTML = 0;*/
+            //alert("player loses by dealer blackjack");
+            playerloses(i);
+        }
+        else if(dealerVictoryConditions == 1){
+            //alert("player loses by dealer draw 5");
+            playerloses(i);
         }
         else if(playerVictory[i] == 2){
-            alert("player wins by blackjack")/*
-            var messege = document.createElement("P");
-            messege.innerHTML = "YOU WIN!";
-            document.getElementById("misc" + num).appendChild(messege);
-            var bet = document.getElementById("lockedbetamount" + i);
-            var winnings = Math.floor(bet.innerHTML * 1.5);
-            bet.getinnerHTML = 0;
-            playerScore.innerHTML += winnings;*/
+            //alert("player wins by blackjack")
+            playerWins(i, 2.5);
         }
         else if(playerVictory[i] == 3){
-            alert("player wins by draw 5");/*
-            var messege = document.createElement("P");
-            messege.innerHTML = "YOU WIN!";
-            document.getElementById("misc" + num).appendChild(messege);
-            var bet = document.getElementById("lockedbetamount" + i);
-            var winnings = Math.floor(bet.innerHTML);
-            bet.getinnerHTML = 0;
-            playerScore.innerHTML += winnings;*/
+            //alert("player wins by draw 5");
+            playerWins(i, 2);
         }
         else if(playerScore > 21){
-            alert("player loses by bust");
+            //alert("player loses by bust");
+            playerLoses(i);
         }
         else if(dealerScore > 21){
-            alert("player wins by dealer bust");
+            //alert("player wins by dealer bust");
+            playerWins(i, 2);
+
         }
         else if(dealerScore >= playerScore){
-            alert("player loses by high score");/*
-            var messege = document.createElement("P");
-            messege.innerHTML = "YOU LOSE!";
-            document.getElementById("misc" + i).appendChild(messege);
-            document.getElementById("lockedbetamount" + i).innerHTML = 0;*/
+            //alert("player loses by high score");
+            playerLoses(i);
+
         }
         else{
-            alert("player wins by high score");/*
-            var messege = document.createElement("P");
-            messege.innerHTML = "YOU WIN!";
-            document.getElementById("misc" + num).appendChild(messege);
-            var bet = document.getElementById("lockedbetamount" + i);
-            var winnings = Math.floor(bet.innerHTML);
-            bet.getinnerHTML = 0;
-            playerScore.innerHTML += winnings;*/
+            //alert("player wins by high score");
+            playerWins(i, 2);
+
         }
     }
+    document.getElementById("restart").style.display = "block";
+
+
 }
 
 function lockBet(num){
@@ -389,21 +470,10 @@ function hit(num){
 
     if(total > 21){
         playerVictory[num] = 1;
-        var messege = document.createElement("P");
+        var messege = document.getElementById("messege" + num);
         messege.innerHTML = "BUST!";
-        document.getElementById("misc" + num).appendChild(messege);
         document.getElementById("hit" + num).style.display = "none";
         document.getElementById("stand" + num).style.display = "none";
-        donePlayers++;
-    }
-
-    if(total == 21 && hands[num].getSize() == 2){
-        playerVictory[num] = 2;
-        document.getElementById("hit" + num).style.display = "none";
-        document.getElementById("stand" + num).style.display = "none";
-        var messege = document.createElement("P");
-        messege.innerHTML = "BLACKJACK!";
-        document.getElementById("misc" + num).appendChild(messege);
         donePlayers++;
     }
 
@@ -411,9 +481,8 @@ function hit(num){
         playerVictory[num] = 3;
         document.getElementById("hit" + num).style.display = "none";
         document.getElementById("stand" + num).style.display = "none";
-        var messege = document.createElement("P");
+        var messege = document.getElementById("messege" + num);
         messege.innerHTML = "DREW 5!";
-        document.getElementById("misc" + num).appendChild(messege);
         donePlayers++
     }
 

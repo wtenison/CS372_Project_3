@@ -17,6 +17,7 @@
         <button type="button" id="addnewplayer" onclick="addPlayer();">add Player</button>
         <button type="button" id="start" onclick="start()" style="display:none">start!</button>
         <button type="button" id="dealdealer" disabled="disabled" onclick="dealDealer();">deal dealer</button>
+        <button type="button" id="restart" onclick="restart()" style="display:none">restart</button>
         <script>
         document.getElementById("dealdealer").style.display = "none";
         </script>
@@ -49,6 +50,7 @@
                     <button type="button" onclick="alert('seems aggressive')">fight again</button> <br>
                     -->
                     <p1>total: </p1> <p1 id="total0" style="display:none">0</p1>
+                    <p1 id="messege0"></p1>
                 </td>
                 <td>
                     <img src="resource\player.jpg" />
