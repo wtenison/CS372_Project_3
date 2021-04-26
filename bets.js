@@ -83,15 +83,21 @@ function deal() {
     currentBet += amount;
     document.getElementById("deal-amnt").innerHTML = "$" + bet;
     document.getElementById("betting-amnt").innerHTML = 0;
-    amount = 0;
 
+
+    if (amount > 0) {
+        document.getElementById("hit").disabled = false;
+        document.getElementById("stand").disabled = false;
+    }
+    amount = 0;
+    pauseBet(true);
 }
 
 function wonBet() {
     let bankTotal = document.getElementById("bank-amnt").innerHTML;
     currentBet *= 1.5;
     currentBet += +bankTotal;
-    document.getElementById("bank-amnt").innerHTML = currentBet;
+    document.getElementById("bank-amnt").innerHTML = Math.round(currentBet);
     document.getElementById("betting-amnt").innerHTML = 0;
     document.getElementById("deal-amnt").innerHTML = "$" + 0;
     currentBet = 0;
@@ -103,5 +109,12 @@ function lostBet() {
     document.getElementById("deal-amnt").innerHTML = "$" + 0;
     bet = 0;
     currentBet = 0;
+}
 
+var betboard = document.getElementsByClassName("betboard");
+
+function pauseBet(x) {
+    for (var i = 0; i < betboard.length; i++) {
+        betboard[i].disabled = x;
+    }
 }

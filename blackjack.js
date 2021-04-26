@@ -1,10 +1,11 @@
 //document.getElementById("hit").disabled = false;
 //document.getElementById("stand").disabled = false;
 //Above are for Firefox, if using location.reload() to implement "FIGHT AGAIN"
-
 var counter = 0; // Dealing times
 var winner = ""; // Winner: player1 - computer /player2 - player
 var hasStood = false; // Mark if the player chose stand
+document.getElementById("hit").disabled = true;
+document.getElementById("stand").disabled = true;
 
 // All cards
 var cards = [
@@ -73,7 +74,8 @@ function stand() {
             document.getElementById("hit").disabled = true;
             document.getElementById("stand").disabled = true;
             winner = "player2";
-            //wonBet();
+            pauseBet(true);
+            wonBet();
         }
     }
     // If both players don't have BUST, the higher score wins
@@ -90,10 +92,12 @@ function stand() {
             document.getElementById("bulletin").innerHTML = setPush;
         } else if (result1 > result2) {
             document.getElementById("bulletin").innerHTML = setULose;
-            //lostBet();
+            pauseBet(true);
+            lostBet();
         } else if (result1 < result2) {
             document.getElementById("bulletin").innerHTML = setUWin;
-            //wonBet();
+            pauseBet(true);
+            wonBet();
         }
     }
     showScore();
@@ -142,7 +146,8 @@ function checkIfBust(player) {
             result += c;
         }
         if (result > 21) {
-            //lostBet();
+            pauseBet(true);
+            lostBet();
             return true;
         } else {
             return false;
@@ -202,8 +207,7 @@ function showScore() {
 }
 
 function restart() {
-    document.getElementById("hit").disabled = false;
-    document.getElementById("stand").disabled = false;
+    pauseBet(false);
     counter = 0; // Dealing times
     winner = ""; // Winner: player1 - computer /player2 - player
     hasStood = false; // Mark if the player chose stand

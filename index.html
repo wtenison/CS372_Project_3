@@ -66,13 +66,7 @@
         color: white;
     }
     
-    #one,
-    #five,
-    #twentyfive,
-    #fifty,
-    #hundred,
-    #fivehundred,
-    #thousand {
+    .betboard {
         margin: 3px;
         margin-left: 10px;
         height: 30px;
@@ -90,7 +84,7 @@
     #deal {
         height: 40px;
         width: 50px;
-        margin-left: 250px;
+        margin-left: 230px;
     }
 </style>
 
@@ -162,18 +156,18 @@
         <div id="betting-board-label">
             <div id="bank-label">Bank:</div>
             <div id="bank-amnt" value="1000"></div>
-            <input type="button" value="ALL IN" onclick="allIn();">
+            <input type="button" value="ALL IN" onclick="allIn();" class="betboard" style="height:unset; width:unset;">
             <div id="betting-amnt" value="0"></div>
         </div>
-        <input type="button" value="1" onclick="addOne();" id="one">
-        <input type="button" value="5" onclick="addFive();" id="five">
-        <input type="button" value="25" onclick="addTwentyfive();" id="twentyfive">
-        <input type="button" value="50" onclick="addFifty();" id="fifty">
-        <input type="button" value="100" onclick="addHundred();" id="hundred">
-        <input type="button" value="500" onclick="addFivehundred();" id="fivehundred">
-        <input type="button" value="1000" onclick="addThousand();" id="thousand">
+        <input type="button" value="1" onclick="addOne();" class="betboard">
+        <input type="button" value="5" onclick="addFive();" class="betboard">
+        <input type="button" value="25" onclick="addTwentyfive();" class="betboard">
+        <input type="button" value="50" onclick="addFifty();" class="betboard">
+        <input type="button" value="100" onclick="addHundred();" class="betboard">
+        <input type="button" value="500" onclick="addFivehundred();" class="betboard">
+        <input type="button" value="1000" onclick="addThousand();" class="betboard">
         <p style="color:rgb(49, 160, 104); font-size:20px;" id="deal-amnt"></p>
-        <input type="button" value="DEAL" onclick="deal();" id="deal">
+        <input type="button" value="DEAL" onclick="deal();" class="betboard" id="deal">
     </div>
 
     <hr>
