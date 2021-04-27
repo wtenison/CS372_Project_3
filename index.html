@@ -1,11 +1,10 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-
-<head>
+  <head>
     <title>Blackjack</title>
-
-    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
-</head>
-<style type="text/css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
+      charset="UTF-8">
+    <style type="text/css">
     body {
         overflow: hidden;
         background-image: url("bg.jpg");
@@ -87,110 +86,135 @@
         margin-left: 230px;
     }
 </style>
-
-<body>
+  </head>
+  <body>
     <table width="100%">
+      <tbody>
         <tr>
-            <td>
-                <div align="left">
-                    <font size="50px" color=#f5dd07><i><b>Blackjack</b></i></font>
-                </div>
-            </td>
-            <td>
-                <div align="right">
-                    <audio width="300" height="10" controls autoplay="true" loop="true">
-                        <source src="town.ogg" type="audio/ogg">
-                        Your browser does not support the audio element.
-                    </audio><br />
-                </div>
-            </td>
+          <td>
+            <div align="left"> <font size="50px" color="#f5dd07"><i><b>Blackjack</b></i></font>
+            </div>
+          </td>
+          <td>
+            <div align="right"> <audio width="300" height="10"
+                controls="controls" autoplay="true" loop="true"> <source
+                  src="town.ogg" type="audio/ogg"> Your browser does not
+                support the audio element. </audio><br>
+            </div>
+          </td>
         </tr>
+      </tbody>
     </table>
     <hr>
     <table id="tableboard">
+      <tbody>
         <tr>
-            <td>
-                <font size=5 color=#f5bd07><i><b>Computer </b></i></font>
-            </td>
+          <td> <font size="5" color="#f5bd07"><i><b>Computer </b></i></font>
+          </td>
         </tr>
         <tr>
-            <td align="center" id="player1"><img src="resource\computer.jpg" /></td>
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
+          <td id="player1" align="center"><img
+              src="resource\computer.jpg"></td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
         </tr>
         <tr>
-            <td>
-                <font size=5 color=#f5bd07><i><b>Player </b></i></font>
-            </td>
+          <td> <font size="5" color="#f5bd07"><i><b>Player </b></i></font>
+          </td>
         </tr>
         <tr>
-            <td align="center" id="player2"><img src="resource\player.jpg" /></td>
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
-            <td />
+          <td id="player2" align="center"><img src="resource\player.jpg"></td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
+          <td> <br>
+          </td>
         </tr>
+      </tbody>
     </table>
     <div id="betting-board">
-        <div id="betting-board-label">
-            <div id="bank-label">Bank:</div>
-            <div id="bank-amnt" value="1000"></div>
-            <input type="button" value="ALL IN" onclick="allIn();" class="betboard" style="height:unset; width:unset;">
-            <div id="betting-amnt" value="0"></div>
-        </div>
-        <input type="button" value="1" onclick="addOne();" class="betboard">
-        <input type="button" value="5" onclick="addFive();" class="betboard">
-        <input type="button" value="25" onclick="addTwentyfive();" class="betboard">
-        <input type="button" value="50" onclick="addFifty();" class="betboard">
-        <input type="button" value="100" onclick="addHundred();" class="betboard">
-        <input type="button" value="500" onclick="addFivehundred();" class="betboard">
-        <input type="button" value="1000" onclick="addThousand();" class="betboard">
-        <p style="color:rgb(49, 160, 104); font-size:20px;" id="deal-amnt"></p>
-        <input type="button" value="DEAL" onclick="deal();" class="betboard" id="deal">
+      <div id="betting-board-label">
+        <div id="bank-label">Bank:</div>
+        <div id="bank-amnt" value="1000"></div>
+        <input value="ALL IN" onclick="allIn();" class="betboard" style="height:unset; width:unset;" type="button">
+        <div id="betting-amnt" value="0"></div>
+      </div>
+      <input value="1" onclick="addOne();" class="betboard" type="button">
+      <input value="5" onclick="addFive();" class="betboard" type="button">
+      <input value="25" onclick="addTwentyfive();" class="betboard" type="button">
+      <input value="50" onclick="addFifty();" class="betboard" type="button">
+      <input value="100" onclick="addHundred();" class="betboard" type="button">
+      <input value="500" onclick="addFivehundred();" class="betboard" type="button">
+      <input value="1000" onclick="addThousand();" class="betboard" type="button">
+      <p style="color:rgb(49, 160, 104); font-size:20px;" id="deal-amnt"></p>
+      <input value="DEAL" onclick="deal();" class="betboard" id="deal" type="button">
     </div>
-
     <hr>
     <table>
+      <tbody>
         <tr>
-            <td>
-                <div id="score"></div>
-            </td>
-            <td>
-                <div id="bulletin">
-                    <font color="yellow"> Please make a choice. </font>
-                </div>
-            </td>
+          <td>
+            <div id="score"></div>
+            <br>
+          </td>
+          <td>
+            <div id="bulletin"> <font color="yellow"> Please make a
+                choice. </font> </div>
+          </td>
         </tr>
+      </tbody>
     </table>
-    <hr>
-    <input type="button" id="hit" value="HIT" onclick="hit();" />
-    <input type="button" id="stand" value="STAND" onclick="stand();" />
+    <hr> <input id="hit" value="HIT" onclick="hit();" type="button"> <input id="stand" value="STAND" onclick="stand();" type="button">
     <!--<input type="button" id="restart" value="FIGHT AGAIN" onclick="location.reload();" />-->
-    <input type="button" id="restart" value="FIGHT AGAIN" onclick="restart();" />
+    <input id="restart" value="FIGHT AGAIN" onclick="restart();" type="button">
     <script src="blackjack.js"></script>
     <script src="bets.js"></script>
-
-</body>
-
+  </body>
 </html>

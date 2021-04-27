@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head id="head">
+    <meta http-equiv="content-type" content="text/html;
+      charset=windows-1252">
+    <!-- Loads Script for BS game -->
+    <script src="BJmain.js"></script>
+    <!-- Initializes Style -->
+    <style>
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+    <!-- Initializes Buttons -->
+    <title></title>
+  </head>
+  <body>
+    <button type="button" id="addnewplayer" onclick="addPlayer();">add
+      Player</button> <button type="button" id="start"
+      onclick="start()" style="display:none">start!</button> <button
+      type="button" id="dealdealer" disabled="disabled"
+      onclick="dealDealer();">deal dealer</button> <button
+      type="button" id="restart" onclick="restart()"
+      style="display:none">restart</button>
+    <script>
+        document.getElementById("dealdealer").style.display = "none";
+    </script>
+    <!-- Declares types used -->
+    <table id="dealer">
+      <tbody>
+        <tr>
+          <td id="dealermisc"> <p1>total: </p1> <p1 id="dealertotal"></p1>
+          </td>
+          <td> <img src="resource\computer.jpg"> </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table id="player" height="236" width="414">
+      <tbody>
+        <tr>
+          <td id="misc0"> <button type="button" style="display:none;"
+              id="hit0" onclick="hit(0);">hit</button> <br>
+            <button type="button" style="display:none;" id="stand0"
+              onclick="stand(0);">stand</button> <br>
+            <!--
+                    <button type="button" onclick="alert('seems aggressive')">fight again</button> <br>
+                    --> <p1>total: </p1> <p1 id="total0"
+              style="display:none">0</p1> <p1 id="messege0"></p1> </td>
+          <td> <img src="resource\player.jpg"> </td>
+          <td id="bet0"> <p1>total:$</p1> <p1 id="money0">100</p1> <br>
+            <input id="betamount0" style="width:50px;" type="text"> <p1
+              id="lockbetamountformat0"> </p1> <p1
+              id="lockedbetamount0"></p1> <br>
+            <button type="button" style="display:block;" id="setbet0"
+              onclick="lockBet(0)">lock bet</button> <br>
+            <p1 id="beterror0"></p1> </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+          <td><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+  </body>
+</html>
