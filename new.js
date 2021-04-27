@@ -1,43 +1,73 @@
-class Card{
-    constructor(number, suit){
+// Card Class: 
+// - For creation and manipulation of cards
+
+// Functions:
+// getValue() Returns the value of the card.
+// compare() Used for comparing alike cards.
+// getCardInfo() returns card value and suit
+// getCardImage() returns the card image from resource file
+class Card
+{
+    constructor(number, suit)
+    {
         this.number = number;
         this.suit = suit;
 
         var cardnum = number;
-        if(number < 10){
+        if(number < 10)
+        {
             cardnum = "0" + number;
         }
 
         this.picture = this.suit + cardnum + ".jpg";
     }
 
-    getValue(){
-        if(this.number >9){
+    getValue()
+    {
+        if(this.number > 9)
+        {
             return 10;
         }
         return this.number;
     }
 
-    compare(card){
+    compare(card)
+    {
         return this.number == card.number && this.suit == card.suit;
     }
 
-    printCard(){
+    getCardInfo()
+    {
         return this.number + " " + this.suit;
     }
 
-    getCardImage(){
+    getCardImage()
+    {
         return "resource\\"+this.picture;
     }
 
 }
 
-class Deck{
-    constructor(empty){
-        if(empty==undefined){
+// Deck Class: 
+// - Used to store and manipulate cards
+
+// Functions:
+// getCard(index) - returns the card from this index
+// getSize() - returns the size of the deck
+// add(card) - adds a given card object to the deck
+// remove(op) - input a card object or a number and removes the card from the deck
+// printDeck() - loops through the deck and prints out card info
+// shuffle() - loops through deck moving random cards around.
+class Deck
+{
+    constructor(empty)
+    {
+        if(empty==undefined)
+        {
             this.cards = [];
             var i;
-            for(i = 1; i <=13;i++){
+            for(i = 1; i <= 13;i++)
+            {
                 let heart = new Card(i, "heart");
                 let spade = new Card(i, "spade");
                 let club = new Card(i, "club");
@@ -45,32 +75,41 @@ class Deck{
                 this.cards.push(heart, spade, club, diamond);
             }
         }
-        else{
+        else
+        {
             this.cards = [];
         }
     }
 
-    getCard(index){
+    getCard(index)
+    {
         return this.cards[index]
     }
 
-    getSize(){
+    getSize()
+    {
         return this.cards.length;
     }
 
-    add(card){
+    add(card)
+    {
         this.cards[this.getSize()] = card;
         return this.cards[this.getSize()];
     }
 
-    remove(op){
-        if(typeof(op) == "number"){
-            this.cards.splice(op,1);
+    remove(card)
+    {
+        if(typeof(card) == "number")
+        {
+            this.cards.splice(card,1);
         }
-        else{
+        else
+        {
             var i;
-            for(i = 0; i < this.getSize(); i++){
-                if(this.cards[i].compare(op)){
+            for(i = 0; i < this.getSize(); i++)
+            {
+                if(this.cards[i].compare(card))
+                {
                     this.cards.splice(i, 1);
                     break;
                 }
@@ -79,63 +118,74 @@ class Deck{
 
     }
 
-    printDeck(){
+    printDeck()
+    {
         var i;
         var text = "";
         for(i = 0; i < this.getSize();i++){
-           text += this.getCard(i).printCard() + "  ";
+           text += this.getCard(i).getCardInfo() + "  ";
         }
         return text;
     }
 
-    shuffle(){
+    shuffle()
+    {
         var i;
-        for(i = 0; i < this.getSize(); i++){
+        for(i = 0; i < this.getSize(); i++)
+        {
             var randCardNum = Math.floor(Math.random() * this.getSize());
             let tempCard = this.cards[i];
             this.cards[i] = this.cards[randCardNum];
             this.cards[randCardNum] = tempCard;
         }
-        return this.cards[0].printCard();
+        return this.cards[0].getCardInfo();
     }
 }
 
-
-
-
-
-
-
-function dealCard(num){
+// Deal Card:
+// Deals card to player that is selected (based on num, each index corresponds to a player [0 = player 0])
+function dealCard(num)
+{
+    //Initialize used variables
     var img = new Image();
     var randCardNum = Math.floor(Math.random() * deck.getSize());
     var player = document.getElementById("player");
     var handTotal = document.getElementById("total"+num);
     var total = Number(handTotal.innerHTML);
 
+    // Gets random card, places image on board, adds to the total, and adds card to players hand
     img.src = deck.getCard(randCardNum).getCardImage();
     player.rows[num].cells[cardStartPos+hands[num].getSize()].innerHTML = "<img src=" + img.src + " />";
     total+= deck.getCard(randCardNum).getValue();
     handTotal.innerHTML=total;
     hands[num].add(deck.getCard(randCardNum));
 
+
+    // Calculates the total value for the players cards
     var i;
     var temptot = 0;
     var numAces = 0;
-    for(i=0;i<hands[num].getSize();i++){
+    for(i = 0; i < hands[num].getSize(); i++)
+    {
         let c = hands[num].getCard(i).getValue();
         temptot += c;
-        if(c == 1){
+        if(c == 1)
+        {
            temptot+=10;
            numAces++;
         }
     }
-    while(numAces!= 0 && temptot > 21){
+
+    // Makes the 
+    while(numAces != 0 && temptot > 21)
+    {
         temptot-=10;
         numAces--;
     }
 
-    if(total == 21 && hands[num].getSize() == 2){
+    // 
+    if(total == 21 && hands[num].getSize() == 2)
+    {
             playerVictory[num] = 2;
             document.getElementById("hit" + num).style.display = "none";
             document.getElementById("stand" + num).style.display = "none";
@@ -152,13 +202,17 @@ function dealCard(num){
 
 }
 
-function dealDealer(){
+// Deal Dealer:
+// Deals card to dealer
+function dealDealer()
+{
     var img = new Image();
     var randCardNum = Math.floor(Math.random() * deck.getSize());
     var player = document.getElementById("dealer");
     var handTotal = document.getElementById("dealertotal");
     var total = Number(handTotal.innerHTML);
 
+    // Gets random card, places image on board, adds to the total, and adds card to players hand
     img.src = deck.getCard(randCardNum).getCardImage();
     player.rows[0].cells[cardStartPosDealer+dealerDeck.getSize()].innerHTML = "<img src=" + img.src + " />";
     total+= deck.getCard(randCardNum).getValue();
@@ -168,13 +222,10 @@ function dealDealer(){
     deck.remove(randCardNum);
 }
 
-
-
-
-
-
-
-function dealerStart(){
+// Dealer Start:
+// Initialization function for Dealer
+function dealerStart()
+{
     //document.getElementById("dealdealer").disabled = !document.getElementById("dealdealer").disabled;
     var img = new Image();
     img.src= dealerDeck.getCard(0).getCardImage();
@@ -185,25 +236,32 @@ function dealerStart(){
     dealerTurn();
 }
 
-function dealerTurn(){
+// Dealer Turn:
+// Simulates a simple dealer bot that will only hit if his total is less than 17
+function dealerTurn()
+{
     var total = document.getElementById("dealertotal").innerHTML;
     var i = 2;
-    while(total < 17 && i <5){
+    while(total < 17 && i < 5)
+    {
         dealDealer();
         total = document.getElementById("dealertotal").innerHTML;
         i++;
     }
-    if(i == 5){
+    if(i == 5)
+    {
         dealerVictoryConditions = 1;
     }
     checkWin();
 }
 
-
-function turnOnBets(){
+// Turn On Bets:
+// Function that turns on the bet buttons and functions 
+function turnOnBets()
+{
     var i;
-
-    for(i = 0; i < numPlayers;i++){
+    for(i = 0; i < numPlayers;i++)
+    {
         var bet = document.getElementById("betamount" + i);
         var button = document.getElementById("setbet" + i);
         var lockedbet = document.getElementById("lockedbetamount" + i);
@@ -212,18 +270,23 @@ function turnOnBets(){
         bet.style.display = "block";
         lockedbet.innerHTML = "";
         format.innerHTML = "";
-
     }
     betsLocked = 0;
 }
 
-function playerLoses(num){
+// Player Loses
+// Function that prints message for the losers
+function playerLoses(num)
+{
     var messege = document.getElementById("messege" + num);
     messege.innerHTML = "YOU LOSE!";
     document.getElementById("lockedbetamount" + num).innerHTML = 0;
 }
 
-function playerWins(num, multiplier){
+// Player Wins
+// Function that prints message for the winner
+function playerWins(num, multiplier)
+{
     var messege = document.getElementById("messege" + num);
     messege.innerHTML = "YOU WIN!";
     var bet = document.getElementById("lockedbetamount" + num);
@@ -232,17 +295,17 @@ function playerWins(num, multiplier){
     bet.innerHTML = 0;
 }
 
-
+// Game Variables:
 var playerString;
 var playerStringFlag = false;
 var cardStartPos = 3;
 var cardStartPosDealer = 2;
 
-//each index corresponds to a player (0 = player 0)
-//0 = undetermined (player is still playing or is standing)
-//1 = bust
-//2 = blackjack
-//3 = 5 card victory
+// Each index corresponds to a player (0 = player 0)
+// 0 = undetermined (player is still playing or is standing)
+// 1 = bust
+// 2 = blackjack
+// 3 = 5 card victory
 var playerVictory = [];
 var dealerVictoryConditions = 0;
 var numPlayers = 1;
@@ -255,7 +318,8 @@ var hand = new Deck(0);
 var hands = [hand];
 //var total = 0;
 
-
+// Restart: 
+// Function that restarts the gams 
 function restart(){
     //reset game logic
     var i;
@@ -379,63 +443,76 @@ function addPlayer(){
 
 }
 
-function checkWin(){
+// Function to check for winner
+function checkWin()
+{
     var dealerScore = Number(document.getElementById("dealertotal").innerHTML);
     var dealerHasBlackjack = false;
-    if (dealerScore == 21 && dealerDeck.getSize() == 2){
+    if (dealerScore == 21 && dealerDeck.getSize() == 2)
+    {
         dealerHasBlackjack = true;
     }
 
 
     var i;
-    for(i = 0; i < hands.length; i++){
+    for(i = 0; i < hands.length; i++)
+    {
         var player = document.getElementById("total" + i);
         var playerScore = Number(player.innerHTML);
         if(dealerHasBlackjack){
             //alert("player loses by dealer blackjack");
             playerloses(i);
         }
-        else if(dealerVictoryConditions == 1){
+        else if(dealerVictoryConditions == 1)
+        {
             //alert("player loses by dealer draw 5");
             playerloses(i);
         }
-        else if(playerVictory[i] == 2){
+        else if(playerVictory[i] == 2)
+        {
             //alert("player wins by blackjack")
             playerWins(i, 2.5);
         }
-        else if(playerVictory[i] == 3){
+        else if(playerVictory[i] == 3)
+        {
             //alert("player wins by draw 5");
             playerWins(i, 2);
         }
-        else if(playerScore > 21){
+        else if(playerScore > 21)
+        {
             //alert("player loses by bust");
             playerLoses(i);
         }
-        else if(dealerScore > 21){
+        else if(dealerScore > 21)
+        {
             //alert("player wins by dealer bust");
             playerWins(i, 2);
 
         }
-        else if(dealerScore >= playerScore){
+        else if(dealerScore >= playerScore)
+        {
             //alert("player loses by high score");
             playerLoses(i);
 
         }
-        else{
+        else
+        {
             //alert("player wins by high score");
             playerWins(i, 2);
 
         }
     }
     document.getElementById("restart").style.display = "block";
-
-
 }
 
-function lockBet(num){
-    if(!playerStringFlag){
-            playerString = document.getElementById("player").innerHTML;
-            playerStringFlag = true;
+// Lock Bets:
+// Function to lock bets
+function lockBet(num)
+{
+    if(!playerStringFlag)
+    {
+        playerString = document.getElementById("player").innerHTML;
+        playerStringFlag = true;
     }
 
     var bet = document.getElementById("betamount" + num);
@@ -446,10 +523,12 @@ function lockBet(num){
     var button = document.getElementById("setbet" + num);
     var format = document.getElementById("lockbetamountformat" + num);
 
-    if(bet.value == "" || amount < 1 || amount > money.innerHTML){
+    if(bet.value == "" || amount < 1 || amount > money.innerHTML)
+    {
         error.innerHTML = "enter a VALID bet";
     }
-    else{
+    else
+    {
         money.innerHTML -= amount;
         error.innerHTML = "";
         format.innerHTML = "bet: $";
@@ -457,18 +536,22 @@ function lockBet(num){
         button.style.display = "none";
         bet.style.display = "none";
         betsLocked++;
-        if(betsLocked == numPlayers){
+        if(betsLocked == numPlayers)
+        {
             document.getElementById("start").style.display="block";
         }
     }
 }
 
-function hit(num){
-
+// Hit:
+// Function that deals the card and also calculates whether its the end of the game
+function hit(num)
+{
     dealCard(num);
     var total = Number(document.getElementById("total"+num).innerHTML);
 
-    if(total > 21){
+    if(total > 21)
+    {
         playerVictory[num] = 1;
         var messege = document.getElementById("messege" + num);
         messege.innerHTML = "BUST!";
@@ -476,8 +559,9 @@ function hit(num){
         document.getElementById("stand" + num).style.display = "none";
         donePlayers++;
     }
-
-    if(hands[num].getSize() == 5 && !(total > 21)){
+    
+    if(hands[num].getSize() == 5 && !(total > 21))
+    {
         playerVictory[num] = 3;
         document.getElementById("hit" + num).style.display = "none";
         document.getElementById("stand" + num).style.display = "none";
@@ -486,17 +570,21 @@ function hit(num){
         donePlayers++
     }
 
-    if(donePlayers==numPlayers){
+    if(donePlayers==numPlayers)
+    {
         dealerStart();
     }
-
 }
 
-function stand(num){
+// Stand:
+// Function that ends the player's turn
+function stand(num)
+{
     document.getElementById("hit" + num).style.display = "none";
     document.getElementById("stand" + num).style.display = "none";
     donePlayers++;
-    if(donePlayers==numPlayers){
+    if(donePlayers==numPlayers)
+    {
         dealerStart();
     }
 }
