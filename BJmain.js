@@ -338,7 +338,6 @@ function restart(){
         document.getElementById("betamount" + i).value = "";
     }
 
-    alert("yas");
     //clear board for the players
     for(i = 0; i < numPlayers; i++){
         playerVictory[i] = 0;
@@ -380,11 +379,6 @@ function start(){
         dealCard(i);
     }
 
-    var db = document.getElementById("dealdealer");
-    if (db.style.display === "none") {
-      db.style.display = "block";
-    }
-
     dealDealer();
     dealDealer();
     document.getElementById("dealer").rows[0].cells[cardStartPosDealer].innerHTML = "<img src=" + img.src + " />";
@@ -408,7 +402,6 @@ function addPlayer(){
     var currentText = node.innerHTML;
     var newText = playerString;
     var replacement = "misc" + numPlayers
-    //alert(replacement);
     newText = newText.replace('misc0', replacement);
     newText = newText.replace("hit0", "hit" + numPlayers);
     newText = newText.replace("stand0", "stand" + numPlayers);
@@ -427,20 +420,9 @@ function addPlayer(){
     newText = newText.replace("messege0", "messege" + numPlayers);
 
     node.innerHTML = currentText+newText;
-    //var node = document.getElementById("test");
-    //var newNode = document.createElement('td');
-    //var newText = document.createTextNode("YES");
-    //newNode.appendChile(newText);
-    //document.getElementById("makeMore").appendChild(newNode);
-    //newNode.id = newNode.id + numPlayers;
     playerVictory[numPlayers] = 0;
     numPlayers++;
     document.getElementById("start").style.display="none";
-
-    //document.head.appendChild(newNode);
-    //alert(hands.length);
-    //alert(newText);
-
 }
 
 // Function to check for winner
@@ -460,44 +442,36 @@ function checkWin()
         var player = document.getElementById("total" + i);
         var playerScore = Number(player.innerHTML);
         if(dealerHasBlackjack){
-            //alert("player loses by dealer blackjack");
             playerloses(i);
         }
         else if(dealerVictoryConditions == 1)
         {
-            //alert("player loses by dealer draw 5");
             playerloses(i);
         }
         else if(playerVictory[i] == 2)
         {
-            //alert("player wins by blackjack")
             playerWins(i, 2.5);
         }
         else if(playerVictory[i] == 3)
         {
-            //alert("player wins by draw 5");
             playerWins(i, 2);
         }
         else if(playerScore > 21)
         {
-            //alert("player loses by bust");
             playerLoses(i);
         }
         else if(dealerScore > 21)
         {
-            //alert("player wins by dealer bust");
             playerWins(i, 2);
 
         }
         else if(dealerScore >= playerScore)
         {
-            //alert("player loses by high score");
             playerLoses(i);
 
         }
         else
         {
-            //alert("player wins by high score");
             playerWins(i, 2);
 
         }
