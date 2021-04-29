@@ -441,35 +441,43 @@ function checkWin()
     {
         var player = document.getElementById("total" + i);
         var playerScore = Number(player.innerHTML);
+        //Dealer has Blackjack
         if(dealerHasBlackjack){
             playerloses(i);
         }
+        //Dealer drew 5
         else if(dealerVictoryConditions == 1)
         {
             playerloses(i);
         }
+        //Player has Blackjack
         else if(playerVictory[i] == 2)
         {
             playerWins(i, 2.5);
         }
+        //Player drew 5
         else if(playerVictory[i] == 3)
         {
             playerWins(i, 2);
         }
+        //Player busted
         else if(playerScore > 21)
         {
             playerLoses(i);
         }
+        //Dealer busted
         else if(dealerScore > 21)
         {
             playerWins(i, 2);
 
         }
+        //Dealer has a higher score
         else if(dealerScore >= playerScore)
         {
             playerLoses(i);
 
         }
+        //Player has a higher score
         else
         {
             playerWins(i, 2);
