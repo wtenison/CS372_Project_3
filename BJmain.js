@@ -499,13 +499,13 @@ function lockBet(num)
 
     var bet = document.getElementById("betamount" + num);
     var amount = parseInt(bet.value);
+
     var lockedbet = document.getElementById("lockedbetamount" + num);
     var error = document.getElementById("beterror" + num);
     var money = document.getElementById("money" + num);
     var button = document.getElementById("setbet" + num);
     var format = document.getElementById("lockbetamountformat" + num);
-
-    if(bet.value == "" || amount < 1 || amount > money.innerHTML)
+    if(bet.value == "" || isNaN(amount) || amount < 1 || amount > money.innerHTML)
     {
         error.innerHTML = "enter a VALID bet";
     }
